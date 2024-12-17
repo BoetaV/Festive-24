@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" type="b-icon" href="logo.jpg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>ECDoH Festive 2024 Births</title>
     <meta name="viewport" content="width=device-width,
       initial-scale=1.0"/>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <style>
       *{
@@ -31,16 +33,16 @@ body{
     max-width: 650px;
     background: rgba(0, 0, 0, 0.8);
     padding: 15px;
-    margin: 0 28px;
+    margin: 0 18px;
     border-radius: 10px;
     box-shadow: inset -2px 2px 2px white;
 }
 
 .form-title{
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 600;
     text-align: center;
-    padding-bottom: px;
+    padding-bottom: 10px;
     color: white;
     text-shadow: 2px 2px 2px black;
     border-bottom: solid 1px white;
@@ -138,7 +140,7 @@ body{
 }
 
 .form-submit-btn{
-    margin-top: 40px;
+    margin-top: 5px;
 }
 
 .form-submit-btn input{
@@ -224,10 +226,9 @@ h4 {
   </head>
   <body>
     <div class="container">
+      <h1 class="form-title">Festive 2024 - Births</h1>
      <form id="form" method="POST" onsubmit="addTimestamp()">
-
-     <h1 class="form-title">Festive 2024 - Births</h1>
-     
+ 
         <div class="main-user-info">
           <div class="user-input-box">
             <!-- <label for="district">District</label> -->
@@ -274,7 +275,6 @@ h4 {
         </div>
 
           <div class="user-input-box">
-            <!-- <label for="ReportDate">Report Date</label> -->
             <select id="repdate" name="ReportDate" class="user-input-select" required>
               <option value="#" selected disabled>--Select Report Date--</option>
               <option value="25 December 2024">25 December 2024</option>
@@ -283,7 +283,6 @@ h4 {
           </div>
 
           <div class="user-input-box">
-            <!-- <label for="TimeSlot">Time Slot</label> -->
             <select id="timeslot" name="TimeSlot" class="user-input-select" required>
               <option value="#" selected disabled>--Select Time Slot--</option>
                 <option value="1. 00:01 - 06:00">00:01 - 06:00</option>
@@ -293,38 +292,45 @@ h4 {
             </select>
           </div>
 
-          <div class="user-input-box" style="margin-bottom: 10px;">
-            <div style="display: flex; align-items: center;">
-                <input type="checkbox"
-                       id="nilbirths"
-                       name="NoBirthsToReport"
-                       value="Zero Births"
-                       class="small-checkbox"/>
+          <div class="user-input-row" style="display: flex; gap: 20px; align-items: center;">
+            <div class="user-input-box" style="margin-bottom: 10px;">
+              <div style="display: flex; align-items: center;">
+                <input type="checkbox" id="nilbirths" name="NoBirthsToReport" value="Zero Births" class="small-checkbox" />
                 <label for="NoBirthsToReport">No Births To Report</label>
+              </div>
+            </div>
+            
+            <div class="user-input-box" disabled>
+              <div style="display: flex; align-items: center;">
+                <input type="checkbox" id="bba" name="BornBeforeArrival" value="BBA" class="small-checkbox" />
+                <label for="BornBeforeArrival">Born Before Arrival</label>
+              </div>
+            </div>
+            
+            <div class="user-input-box-time">
+              <label for="DeliveryTime">Time of Delivery</label>
+              <input type="time" id="time" name="DeliveryTime" />
             </div>
           </div>
-        <div class="user-input-box" disabled>
-            <div style="display: flex; align-items: center;">
-                <input type="checkbox"
-                       id="bba"
-                       name="BornBeforeArrival"
-                       value="BBA"
-                       class="small-checkbox"/>
-                <label for="BornBeforeArrival">Born Before Arrival</label>
-            </div>        
-            </div>
         <div class="user-input-box">
+          <label for="firstname">Mother Firstname</label>
            <input type="text"
                   id="mother"
                   name="MotherName"
-                  placeholder="Mother Name"/>
+                  placeholder="Mother Firstname"/>
         </div>
         <div class="user-input-box">
-          <input type="number"
-                  id="age"
-                  name="MotherAge"
-                  placeholder="Mother Age"/>
-        </div>
+          <label for="surname">Mother Surname</label>
+           <input type="text"
+                  id="surname"
+                  name="MotherSurname"
+                  placeholder="Mother Surname"/>
+        </div>        
+
+                  <div class="user-input-box" style="display: flex; align-items: center; gap: 6px;">
+                    <label for="MotherDoB">D.O.B. (Mother)</label>
+                    <input type="date" id="age" name="MotherDoB" placeholder="Mother D.O.B." />
+                  </div>
                   <div class="user-input-box">
                     <!-- <label for="FacilityType">FacilityType</label> -->
                     <select id="birthmode" name="BirthMode" class="user-input-select">
@@ -336,7 +342,8 @@ h4 {
                       <option value="Forceps">Forceps</option>
                       <option value="Vaginal Breech">Vaginal Breech</option>
                     </select>
-        </div>
+        </div>      
+    
       <div class="user-input-box">
         <!-- <label for="Gravidity">Local Municipality</label> -->
         <input type="number"
@@ -351,17 +358,11 @@ h4 {
                 name="Parity"
                 placeholder="Parity"/>
       </div>
-      <div class="user-input-box-time">
-                <label for="DeliveryTime">Time of Delivery</label>
-                <input type="time"
-                id="time"
-                name="DeliveryTime"/>
-      </div>
+
       <div class="user-input-box">
         <!-- <label for="FacilityType">FacilityType</label> -->
         <select id="gender" name="Gender" class="user-input-select">
           <option value="#" selected disabled>--Gender--</option>
-          <option value=""></option>
           <option value="Female">Female</option>
           <option value="Male">Male</option>
         </select>
@@ -384,8 +385,14 @@ h4 {
                   <option value="Baby 3">Baby 3</option>
                   <option value="Baby 4">Baby 4</option>
                 </select>
-                
-          </div>
+              </div>
+
+              <div class="user-input-box">
+                <input type="number"
+                       id="captured"
+                       name="CapturedBy"
+                       placeholder="PersalNo"/>
+             </div>
           <input type="hidden" id="timestamp" name="Timestamp">
           <div>
 
@@ -525,45 +532,64 @@ function populateFacility() {
 <script>
   // Function to disable/enable specific fields based on the nilbirths checkbox state
   function disableFields() {
-      var nilBirthsCheckbox = document.getElementById('nilbirths');
-      var bbaField = document.getElementById('bba');
-      var motherField = document.getElementById('mother');
-      var ageField = document.getElementById('age');
-      var birthmodeField = document.getElementById('birthmode');
-      var gravidityField = document.getElementById('gravidity');
-      var parityField = document.getElementById('parity');
-      var timeField = document.getElementById('time');
-      var genderField = document.getElementById('gender');
-      var weightField = document.getElementById('weight');
-      var multipleField = document.getElementById('multiple');
+    var nilBirthsCheckbox = document.getElementById('nilbirths');
+    var bbaField = document.getElementById('bba');
+    var motherField = document.getElementById('mother');
+    var surnameField = document.getElementById('surname');
+    var ageField = document.getElementById('age');
+    var birthmodeField = document.getElementById('birthmode');
+    var gravidityField = document.getElementById('gravidity');
+    var parityField = document.getElementById('parity');
+    var timeField = document.getElementById('time');
+    var genderField = document.getElementById('gender');
+    var weightField = document.getElementById('weight');
+    var multipleField = document.getElementById('multiple');
+    var capturedField = document.getElementById('captured');
 
-      // Check if the nilbirths checkbox is checked
-      if (nilBirthsCheckbox.checked) {
-          // Disable the fields
-          bbaField.disabled = true;
-          motherField.disabled = true;
-          ageField.disabled = true;
-          birthmodeField.disabled = true;
-          gravidityField.disabled = true;
-          parityField.disabled = true;
-          timeField.disabled = true;
-          genderField.disabled = true;
-          weightField.disabled = true;
-          multipleField.disabled = true;
-      } else {
-          // Enable the fields
-          bbaField.disabled = false;
-          motherField.disabled = false;
-          ageField.disabled = false;
-          birthmodeField.disabled = false;
-          gravidityField.disabled = false;
-          parityField.disabled = false;
-          timeField.disabled = false;
-          genderField.disabled = false;
-          weightField.disabled = false;
-          multipleField.disabled = false;
-      }
-  }
+    // Check if the timeslot checkbox is checked
+    if (nilBirthsCheckbox.checked) {
+        // If 'timeslot' is checked, disable all fields
+        bbaField.disabled = true;
+        motherField.disabled = true;
+        surnameField.disabled = true;
+        ageField.disabled = true;
+        birthmodeField.disabled = true;
+        gravidityField.disabled = true;
+        parityField.disabled = true;
+        timeField.disabled = true;
+        genderField.disabled = true;
+        weightField.disabled = true;
+        multipleField.disabled = true;
+        capturedField.disabled = true;
+    } else {
+        // If 'timeslot' is unchecked, enable all fields and make them required
+        bbaField.disabled = false;
+        motherField.disabled = false;
+        surnameField.disabled = false;
+        ageField.disabled = false;
+        birthmodeField.disabled = false;
+        gravidityField.disabled = false;
+        parityField.disabled = false;
+        timeField.disabled = false;
+        genderField.disabled = false;
+        weightField.disabled = false;
+        multipleField.disabled = false;
+        capturedField.disabled = false;
+
+        // Add 'required' attribute for validation
+        motherField.required = true;
+        surnameField.required = true;
+        ageField.required = true;
+        birthmodeField.required = true;
+        gravidityField.required = true;
+        parityField.required = true;
+        timeField.required = true;
+        genderField.required = true;
+        weightField.required = true;
+        capturedField.required = true;
+    }
+}
+
 
   // Attach the function to the change event of the nilbirths checkbox
   document.getElementById('nilbirths').addEventListener('change', disableFields);
@@ -592,7 +618,7 @@ function populateFacility() {
 
       // Send a POST request to your Google Apps Script
       fetch(
-          "https://script.google.com/macros/s/AKfycbzkM2D6IhkyrY3hMi3KfYise7ndz8lQ2nttW6XJL91yr1bvaaNC0Qh1dZWUFFGYmkVSQQ/exec",
+          "https://script.google.com/macros/s/AKfycbxyvRxS4JG37kQWuq2V73soE-kyKTjoPJdIEhp8pVwf5inFp7CQxyRl7gZzHdA6OHL5sw/exec",
           {
               redirect: "follow",
               method: "POST",
@@ -683,6 +709,12 @@ function validateForm() {
 
     return true;
 }
+
+flatpickr("#age", {
+    dateFormat: "d-m-Y",
+    // Add options here for additional functionality
+  });
+
 
     </script>
 
